@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#5b5bd6">
   <meta name="description" content="Hasil personal Jurusan Finder dari @andr.selfedu">
   <title>Hasil Jurusan Finder — @andr.selfedu</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236c4cff'/%3E%3Cpath d='M13 23 32 13l19 10-19 10-19-10Zm8 7v11c8 6 14 6 22 0V30' fill='none' stroke='white' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
-    :root{--ink:#17233c;--muted:#60708a;--brand:#6c4cff;--brand2:#8b73ff;--soft:#f1eeff;--line:#e5e8f0;--bg:#f6f7fb;--good:#167657}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#e9e3ff 0,transparent 28rem),var(--bg);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    :root{--ink:#17233c;--muted:#60708a;--brand:#5b5bd6;--brand2:#7c7cf0;--soft:#eeeeff;--glow:#e4e4ff;--line:#e5e8f0;--bg:#f6f7fb;--good:#167657}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,var(--glow) 0,transparent 28rem),var(--bg);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .35s ease}
     .wrap{max-width:860px;margin:auto;padding:24px 16px 64px}.brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;color:var(--muted);font-size:.92rem}.brand b{color:var(--ink)}
-    .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;margin:14px 0;box-shadow:0 10px 32px rgba(30,38,62,.07)}.hero{background:linear-gradient(135deg,#fff 45%,#f0ecff)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;margin:14px 0;box-shadow:0 10px 32px rgba(30,38,62,.07)}.hero{background:linear-gradient(135deg,#fff 45%,var(--soft));transition:background .35s ease}
     .eyebrow{color:var(--brand);font-weight:800;letter-spacing:.09em;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(2rem,7vw,3.25rem);line-height:1.06;letter-spacing:-.045em;margin:10px 0 14px;max-width:720px}.muted{color:var(--muted)}
     .archetype-visual{display:flex;align-items:flex-end;margin:8px 0 18px;min-height:124px}.emblem{--tone:#6c4cff;display:grid;place-items:center;width:116px;height:116px;border-radius:34px;color:var(--tone);background:linear-gradient(145deg,#fff,color-mix(in srgb,var(--tone) 14%,#fff));border:1px solid color-mix(in srgb,var(--tone) 24%,#fff);box-shadow:0 16px 34px color-mix(in srgb,var(--tone) 18%,transparent);transform:rotate(-3deg)}.emblem svg{width:76%;height:76%;filter:drop-shadow(0 7px 9px color-mix(in srgb,var(--tone) 20%,transparent))}.emblem.secondary{width:67px;height:67px;border-radius:22px;margin:0 0 -5px -18px;transform:rotate(7deg);border-width:3px;border-color:#fff;box-shadow:0 10px 24px rgba(23,35,60,.16)}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.chip{background:var(--soft);color:#5135d5;padding:7px 12px;border-radius:999px;font-weight:750;font-size:.9rem}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.chip{background:var(--soft);color:var(--brand);padding:7px 12px;border-radius:999px;font-weight:750;font-size:.9rem}
     h2{font-size:1.45rem;margin:0 0 12px}h3{margin:0 0 5px;font-size:1.14rem}p{margin-top:0}.major{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:start;padding:20px 0;border-top:1px solid var(--line)}.major:first-of-type{border-top:0}.rank{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-weight:800}.score{font-weight:800;color:var(--brand);white-space:nowrap}.note{display:block;color:var(--muted);font-size:.9rem;margin-top:9px}
-    .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pair .card{margin:0}.wild{border-color:#d9d0ff;background:linear-gradient(135deg,#fff,#f6f3ff)}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pair .card{margin:0}.wild{border-color:color-mix(in srgb,var(--brand) 24%,#fff);background:linear-gradient(135deg,#fff,var(--soft))}
     .cta{display:inline-flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;text-decoration:none;padding:13px 18px;border-radius:13px;font-weight:800}.foot{text-align:center;color:var(--muted);margin-top:26px;font-size:.92rem}.loading,.error{text-align:center;padding:14vh 22px}.error h1{font-size:1.8rem}.hide{display:none}
     @media(max-width:640px){.wrap{padding:18px 12px 48px}.card{padding:21px;border-radius:18px}.major{grid-template-columns:40px 1fr}.score{grid-column:2}.pair{grid-template-columns:1fr}.brand{padding:0 4px}}
   </style>
@@ -43,10 +44,12 @@
     const favorite=decodeURIComponent(params.get('SUBJECTS')||'').toLowerCase();
     const mastered=decodeURIComponent(params.get('MASTERED')||'').toLowerCase();
     const topics=decodeURIComponent(params.get('TOPICS')||'').toLowerCase();
+    const avoid=decodeURIComponent(params.get('AVOID')||'').toLowerCase();
+    const tolerances={math:Number(params.get('MATH_TOL')||0),theory:Number(params.get('THEORY_TOL')||0),code:Number(params.get('CODE_TOL')||0),practical:Number(params.get('PRACTICAL_TOL')||0)};
     const noGoRules=[
       {keys:['kesehatan','24caf2ab-b419-473d-80e0-0821ce45def9'],clusters:['Kesehatan']},
       {keys:['teknik','84dd90f3-bf9f-44f2-994e-1bef865686ea'],clusters:['Teknik']},
-      {keys:['teknologi','6d4cd785-4800-4e34-9be7-089045547cfd'],clusters:['Data & Komputasi']},
+      {keys:['teknologi','6d4cd785-4800-4e34-9be7-089045547cfd'],clusters:['Data & Komputasi'],ids:['business-digital']},
       {keys:['bisnis','c5cf62d6-d316-49f9-9546-b557aab2d475'],clusters:['Bisnis & Ekonomi']},
       {keys:['hukum/pemerintahan','da9a297f-f8f8-472f-93fe-98cb063496b1'],clusters:['Hukum & Kebijakan']},
       {keys:['sosial/humaniora','81d774fb-0ac8-464a-bf13-b55b66189941'],clusters:['Sosial & Humaniora']},
@@ -67,10 +70,44 @@
       if(contains(mastered,GEO)) b+=regional.includes(id)?6:0;
       const allSubjects=favorite+'|'+mastered;
       if(contains(allSubjects,ECON)&&contains(allSubjects,GEO)) b+=id==='regional-economic-development'?8:id==='regional-development'?9:id==='urban-planning'?6:id==='development-economics'?4:0;
+      const social=['sosiologi','f57d209c-ac71-4b36-b7f4-ce2206c1c2cf','832c1142-06aa-4d21-b145-9449b2c85bf2'];
+      const language=['bahasa indonesia','bahasa inggris','8422e01d-b9c8-4e14-b93d-7fd7f509b290','7c12a576-7a15-4bd6-ab1d-b83d6fa87e11','90c6f59d-5377-463d-99a6-34f4b73c5653','109e4b31-7232-4b11-9a47-777d45b56d29'];
+      if(contains(favorite,social)) b+=['sociology','anthropology','psychology'].includes(id)?10:id==='communication'?5:0;
+      if(contains(mastered,social)) b+=['sociology','anthropology','psychology'].includes(id)?6:id==='communication'?3:0;
+      if(contains(favorite,language)) b+=id==='literature'?10:['journalism','communication'].includes(id)?7:0;
+      if(contains(mastered,language)) b+=id==='literature'?6:['journalism','communication'].includes(id)?4:0;
       if(contains(topics,['bisnis','ekonomi','d65e8c6d-9236-4cc5-aa21-f1c0d9ea9e46'])&&cluster==='Bisnis & Ekonomi') b+=3;
       if(contains(topics,['teknologi','284c591a-80d8-4032-86bb-8fefdea7a84c'])&&cluster==='Data & Komputasi') b+=3;
       if(contains(topics,['teknik/rekayasa','0fe666db-e804-41d8-8134-16accc2b9f56'])&&cluster==='Teknik') b+=3;
+      if(contains(topics,['manusia','perilaku','f4432e69-57df-48c9-9954-42db1748fd2b'])) b+=['psychology','sociology','anthropology'].includes(id)?8:0;
+      if(contains(topics,['media','komunikasi','f2add37c-e3d8-441e-b0ee-8b34b5ca3735'])) b+=['communication','journalism','film','visual-design'].includes(id)?8:0;
+      if(contains(topics,['pendidikan','0cc49bb3-b02a-4e56-af0f-999dd7a3d50c'])&&id==='education') b+=8;
       return Math.min(26,b);
+    };
+    const LOADS={
+      math4:['data-science','statistics','informatics','cybersecurity','ai','computer-engineering','electrical-engineering','mechanical-engineering','civil-engineering','industrial-engineering','chemical-engineering','geodesy','economics','accounting','finance','physics','chemistry'],
+      math3:['information-systems','environmental-engineering','architecture','urban-planning','medicine','pharmacy','public-health','development-economics','regional-development','regional-economic-development','biology','biotechnology','geography'],
+      code4:['informatics','cybersecurity','ai','computer-engineering'],
+      code3:['data-science','statistics','information-systems'],
+      lab3:['computer-engineering','electrical-engineering','mechanical-engineering','civil-engineering','chemical-engineering','environmental-engineering','medicine','dentistry','pharmacy','nursing','nutrition','biology','chemistry','physics','biotechnology','agriculture','marine-science'],
+      field4:['urban-planning','geodesy','regional-development','regional-economic-development','environmental-engineering','civil-engineering','agriculture','forestry','marine-science','geography','anthropology'],
+      studio4:['architecture','urban-planning','visual-design','product-design','film']
+    };
+    const inLoad=(name,id)=>(LOADS[name]||[]).includes(id);
+    const courseConstraint=(id)=>{
+      const math=inLoad('math4',id)?4:inLoad('math3',id)?3:0,code=inLoad('code4',id)?4:inLoad('code3',id)?3:0;
+      const lab=inLoad('lab3',id)?3:0,field=inLoad('field4',id)?4:0,studio=inLoad('studio4',id)?4:0,practical=Math.max(lab,field,studio);
+      let penalty=0,excluded=false,reasons=[];
+      if(tolerances.math===1&&math>=3){excluded=true;reasons.push('beban hitungan tidak sesuai')}
+      else if(tolerances.math===2&&math>=4){excluded=true;reasons.push('beban hitungan terlalu tinggi')}
+      if(tolerances.code===1&&code>=3){excluded=true;reasons.push('beban coding tidak sesuai')}
+      else if(tolerances.code===2&&code>=4){excluded=true;reasons.push('beban coding terlalu tinggi')}
+      if(tolerances.practical>0&&tolerances.practical<=2&&practical>=4){excluded=true;reasons.push('praktikum/studio/lapangan terlalu intensif')}
+      if(contains(avoid,['banyak hitungan','ce6fc840-d421-4265-9463-1f13899fefed'])){if(math>=4)excluded=true;else if(math===3)penalty+=22}
+      if(contains(avoid,['praktikum lab','855b8d5e-b1ea-4f05-9abd-fed20486738a'])&&lab>=3)excluded=true;
+      if(contains(avoid,['kegiatan lapangan','bab0df3a-89b7-485c-8eb5-bfb8c67c3044'])&&field>=3)excluded=true;
+      if(contains(avoid,['coding','b3fa4abb-a24a-4841-bd37-58d7ffa344b7'])){if(code>=4)excluded=true;else if(code===3)penalty+=22}
+      return {penalty,excluded,reasons};
     };
     const cosine=(w)=>{let dot=0,a=0,b=0;DIMS.forEach((d,i)=>{const x=scores[d]||0,y=w[i]||0;dot+=x*y;a+=x*x;b+=y*y});return a&&b?100*dot/Math.sqrt(a*b):0};
     const penalty=(rule)=>{let p=0;String(rule||'').split(';').forEach(part=>{const m=part.trim().match(/^([A-Z]{3})<([0-9.]+):([0-9.]+)$/);if(m&&scores[m[1]]<Number(m[2]))p+=Number(m[3])});return Math.min(60,p)};
@@ -85,15 +122,27 @@
       advocate:{tone:'#2f7b68',svg:'<svg viewBox="0 0 96 96"><path d="M48 10 77 21v23c0 20-12 33-29 43-17-10-29-23-29-43V21Z" fill="currentColor" opacity=".16"/><path d="M48 15 72 24v20c0 17-10 28-24 37-14-9-24-20-24-37V24Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M48 30v30M35 39h26M35 39l-8 15h16ZM61 39l-8 15h16Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
       healer:{tone:'#3a9b61',svg:'<svg viewBox="0 0 96 96"><path d="M48 82V45" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M47 48C27 48 16 38 15 20c19-2 32 8 32 28ZM49 61c20 0 31-10 32-28-19-2-32 8-32 28Z" fill="currentColor" opacity=".2"/><path d="M47 48C27 48 16 38 15 20c19-2 32 8 32 28ZM49 61c20 0 31-10 32-28-19-2-32 8-32 28Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M28 31c10 4 16 10 19 17M68 44c-9 4-15 9-19 17" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>'}
     };
+    const ARCHETYPE_THEMES={
+      analyst:{brand:'#5b5bd6',brand2:'#7c7cf0',soft:'#eeeeff',glow:'#e2e2ff'},
+      strategist:{brand:'#7b4acb',brand2:'#a06ee8',soft:'#f3edff',glow:'#eadcff'},
+      innovator:{brand:'#1688a8',brand2:'#36aec5',soft:'#e9f8fb',glow:'#d8f3f8'},
+      creator:{brand:'#d34f8b',brand2:'#ec79ad',soft:'#fff0f7',glow:'#ffddec'},
+      connector:{brand:'#df6b3d',brand2:'#f29a69',soft:'#fff1eb',glow:'#ffe2d4'},
+      leader:{brand:'#c98512',brand2:'#e6ad38',soft:'#fff7e5',glow:'#ffedbd'},
+      advocate:{brand:'#267967',brand2:'#46a58c',soft:'#eaf8f4',glow:'#d5f1e9'},
+      healer:{brand:'#3a965c',brand2:'#67b77e',soft:'#edf9f0',glow:'#d9f1df'}
+    };
+    const applyTheme=id=>{const t=ARCHETYPE_THEMES[id]||ARCHETYPE_THEMES.analyst;Object.entries(t).forEach(([k,v])=>document.documentElement.style.setProperty(`--${k}`,v));document.querySelector('meta[name="theme-color"]')?.setAttribute('content',t.brand)};
     const emblem=(a,secondary=false)=>{const icon=ARCHETYPE_ICONS[a.id]||ARCHETYPE_ICONS.analyst;return `<div class="emblem${secondary?' secondary':''}" style="--tone:${icon.tone}" title="${a.name}">${icon.svg}</div>`};
     const archetypes=ARCHETYPE_ROWS.map(r=>({id:r[0],name:r[1],tagline:r[2],description:r[3],score:cosine(r.slice(4,18))})).sort((a,b)=>b.score-a.score);
-    const majors=MAJOR_ROWS.filter(r=>r[3]!==false).map(r=>{const hard=hardExcluded(r[0],r[2]),p=penalty(r[22]),score=Math.max(0,Math.min(100,cosine(r.slice(8,22))-p+interestBoost(r[0],r[2])));return{id:r[0],major:r[1],cluster:r[2],minScore:Number(r[4])||55,wildcard:r[5]===true,description:r[6],consideration:r[7],score:Math.round(score),compatibility:label(score),excluded:hard||p>=25}}).sort((a,b)=>b.score-a.score);
+    const majors=MAJOR_ROWS.filter(r=>r[3]!==false).map(r=>{const hard=hardExcluded(r[0],r[2]),p=penalty(r[22]),constraint=courseConstraint(r[0]),score=Math.max(0,Math.min(100,cosine(r.slice(8,22))-p-constraint.penalty+interestBoost(r[0],r[2])));return{id:r[0],major:r[1],cluster:r[2],minScore:Number(r[4])||55,wildcard:r[5]===true,description:r[6],consideration:r[7],score:Math.round(score),compatibility:label(score),excluded:hard||constraint.excluded||p>=25}}).sort((a,b)=>b.score-a.score);
     const eligible=majors.filter(m=>!m.excluded&&m.score>=m.minScore),pool=eligible.length>=5?eligible:majors.filter(m=>!m.excluded);
-    function diverse(items,count,selected=[]){const out=[];items.forEach(m=>{if(out.length>=count)return;const same=selected.concat(out).filter(x=>x.cluster===m.cluster).length;if(same<2)out.push(m)});items.forEach(m=>{if(out.length<count&&!out.some(x=>x.id===m.id))out.push(m)});return out}
+    function diverse(items,count,selected=[]){const out=[],spatial=['urban-planning','regional-development','regional-economic-development','geography','geodesy'];items.forEach(m=>{if(out.length>=count)return;const chosen=selected.concat(out),same=chosen.filter(x=>x.cluster===m.cluster).length,spatialUsed=spatial.includes(m.id)&&chosen.some(x=>spatial.includes(x.id));if(same<2&&!spatialUsed)out.push(m)});items.forEach(m=>{if(out.length<count&&!out.some(x=>x.id===m.id))out.push(m)});return out}
     if(!max||!ARCHETYPE_ROWS?.length||!MAJOR_ROWS?.length){document.querySelector('#error').classList.remove('hide')}else{
       const top3=diverse(pool,3),alternative=pool.find(m=>!top3.some(x=>x.id===m.id))||pool[3];
       const used=top3.concat(alternative||[]),wildcard=pool.find(m=>m.wildcard&&!used.some(x=>x&&x.id===m.id))||pool.find(m=>!used.some(x=>x&&x.id===m.id))||alternative;
       const a=archetypes.slice(0,2),strengths=DIMS.map(d=>({id:d,score:Math.round(scores[d])})).sort((x,y)=>y.score-x.score).slice(0,4);
+      applyTheme(a[0].id);
       document.querySelector('#archetypeVisual').innerHTML=emblem(a[0])+emblem(a[1],true);
       document.querySelector('#archetypes').textContent=`${a[0].name} × ${a[1].name}`;
       document.querySelector('#summary').textContent=`${a[0].description}. ${a[1].description}.`;
