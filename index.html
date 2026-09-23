@@ -35,17 +35,51 @@
     const params=new URLSearchParams(location.search);
     const raw=Object.fromEntries(DIMS.map(d=>[d,Number(String(params.get(d)||'0').replace(',','.'))||0]));
     const max=Math.max(...Object.values(raw));
-    const scale=max<=10?10:100;
-    const scores=Object.fromEntries(DIMS.map(d=>[d,Math.max(0,Math.min(100,raw[d]*100/scale))]));
+    // Tally dimensions are point totals with different possible maxima. Normalize the
+    // respondent's strongest dimension to 100 so threshold rules use one scale.
+    const scores=Object.fromEntries(DIMS.map(d=>[d,max?Math.max(0,Math.min(100,raw[d]*100/max)):0]));
+    const noGo=decodeURIComponent(params.get('NO_GO')||'').toLowerCase();
+    const favorite=decodeURIComponent(params.get('SUBJECTS')||'').toLowerCase();
+    const mastered=decodeURIComponent(params.get('MASTERED')||'').toLowerCase();
+    const topics=decodeURIComponent(params.get('TOPICS')||'').toLowerCase();
+    const noGoRules=[
+      {keys:['kesehatan','24caf2ab-b419-473d-80e0-0821ce45def9'],clusters:['Kesehatan']},
+      {keys:['teknik','84dd90f3-bf9f-44f2-994e-1bef865686ea'],clusters:['Teknik']},
+      {keys:['teknologi','6d4cd785-4800-4e34-9be7-089045547cfd'],clusters:['Data & Komputasi']},
+      {keys:['bisnis','c5cf62d6-d316-49f9-9546-b557aab2d475'],clusters:['Bisnis & Ekonomi']},
+      {keys:['hukum/pemerintahan','da9a297f-f8f8-472f-93fe-98cb063496b1'],clusters:['Hukum & Kebijakan']},
+      {keys:['sosial/humaniora','81d774fb-0ac8-464a-bf13-b55b66189941'],clusters:['Sosial & Humaniora']},
+      {keys:['pendidikan','a729741f-bbfe-4fe4-9128-887be7f59dc8'],ids:['education']},
+      {keys:['seni/kreatif','9d0d2cf5-dbe0-4ecd-94bb-d2b17251c4be'],clusters:['Desain & Kreatif']},
+      {keys:['lingkungan/pertanian','446664b8-aa24-47d1-b6c3-5d22a64c2a59'],ids:['environmental-engineering','agriculture','forestry','marine-science']}
+    ];
+    const hardExcluded=(id,cluster)=>noGoRules.some(r=>r.keys.some(k=>noGo.includes(k))&&((r.ids||[]).includes(id)||(r.clusters||[]).includes(cluster)));
+    const contains=(text,keys)=>keys.some(k=>text.includes(k));
+    const ECON=['ekonomi','f0726118-6150-44a5-bf2a-93e8535dff2f','be3c28f2-89f5-42ce-916c-542a26e94280'];
+    const GEO=['geografi','0e29a6a0-29e5-4bf7-9535-7bb3e01be49e','f8e3d9ff-7e86-40da-abcd-07df78f41e3e'];
+    const interestBoost=(id,cluster)=>{
+      let b=0;
+      const econCore=['economics','development-economics'], regional=['urban-planning','regional-development','regional-economic-development','geography','geodesy'];
+      if(contains(favorite,ECON)) b+=econCore.includes(id)?10:id==='regional-economic-development'?9:id==='regional-development'?5:['finance','accounting'].includes(id)?3:0;
+      if(contains(mastered,ECON)) b+=econCore.includes(id)?6:id==='regional-economic-development'?5:['finance','accounting'].includes(id)?3:0;
+      if(contains(favorite,GEO)) b+=regional.includes(id)?10:0;
+      if(contains(mastered,GEO)) b+=regional.includes(id)?6:0;
+      const allSubjects=favorite+'|'+mastered;
+      if(contains(allSubjects,ECON)&&contains(allSubjects,GEO)) b+=id==='regional-economic-development'?8:id==='regional-development'?9:id==='urban-planning'?6:id==='development-economics'?4:0;
+      if(contains(topics,['bisnis','ekonomi','d65e8c6d-9236-4cc5-aa21-f1c0d9ea9e46'])&&cluster==='Bisnis & Ekonomi') b+=3;
+      if(contains(topics,['teknologi','284c591a-80d8-4032-86bb-8fefdea7a84c'])&&cluster==='Data & Komputasi') b+=3;
+      if(contains(topics,['teknik/rekayasa','0fe666db-e804-41d8-8134-16accc2b9f56'])&&cluster==='Teknik') b+=3;
+      return Math.min(26,b);
+    };
     const cosine=(w)=>{let dot=0,a=0,b=0;DIMS.forEach((d,i)=>{const x=scores[d]||0,y=w[i]||0;dot+=x*y;a+=x*x;b+=y*y});return a&&b?100*dot/Math.sqrt(a*b):0};
     const penalty=(rule)=>{let p=0;String(rule||'').split(';').forEach(part=>{const m=part.trim().match(/^([A-Z]{3})<([0-9.]+):([0-9.]+)$/);if(m&&scores[m[1]]<Number(m[2]))p+=Number(m[3])});return Math.min(60,p)};
     const label=n=>n>=85?'Sangat cocok':n>=75?'Cocok':n>=65?'Cukup cocok':'Eksplorasi';
     const archetypes=ARCHETYPE_ROWS.map(r=>({id:r[0],name:r[1],tagline:r[2],description:r[3],score:cosine(r.slice(4,18))})).sort((a,b)=>b.score-a.score);
-    const majors=MAJOR_ROWS.filter(r=>r[3]!==false).map(r=>{const p=penalty(r[22]),score=Math.max(0,Math.min(100,cosine(r.slice(8,22))-p));return{id:r[0],major:r[1],cluster:r[2],minScore:Number(r[4])||55,wildcard:r[5]===true,description:r[6],consideration:r[7],score:Math.round(score),compatibility:label(score),excluded:p>=25}}).sort((a,b)=>b.score-a.score);
+    const majors=MAJOR_ROWS.filter(r=>r[3]!==false).map(r=>{const hard=hardExcluded(r[0],r[2]),p=penalty(r[22]),score=Math.max(0,Math.min(100,cosine(r.slice(8,22))-p+interestBoost(r[0],r[2])));return{id:r[0],major:r[1],cluster:r[2],minScore:Number(r[4])||55,wildcard:r[5]===true,description:r[6],consideration:r[7],score:Math.round(score),compatibility:label(score),excluded:hard||p>=25}}).sort((a,b)=>b.score-a.score);
     const eligible=majors.filter(m=>!m.excluded&&m.score>=m.minScore),pool=eligible.length>=5?eligible:majors.filter(m=>!m.excluded);
     function diverse(items,count,selected=[]){const out=[];items.forEach(m=>{if(out.length>=count)return;const same=selected.concat(out).filter(x=>x.cluster===m.cluster).length;if(same<2)out.push(m)});items.forEach(m=>{if(out.length<count&&!out.some(x=>x.id===m.id))out.push(m)});return out}
     if(!max||!ARCHETYPE_ROWS?.length||!MAJOR_ROWS?.length){document.querySelector('#error').classList.remove('hide')}else{
-      const top3=diverse(pool,3),alternative=diverse(pool.filter(m=>!top3.some(x=>x.id===m.id)),1,top3)[0]||pool[3];
+      const top3=diverse(pool,3),alternative=pool.find(m=>!top3.some(x=>x.id===m.id))||pool[3];
       const used=top3.concat(alternative||[]),wildcard=pool.find(m=>m.wildcard&&!used.some(x=>x&&x.id===m.id))||pool.find(m=>!used.some(x=>x&&x.id===m.id))||alternative;
       const a=archetypes.slice(0,2),strengths=DIMS.map(d=>({id:d,score:Math.round(scores[d])})).sort((x,y)=>y.score-x.score).slice(0,4);
       document.querySelector('#archetypes').textContent=`${a[0].name} × ${a[1].name}`;
